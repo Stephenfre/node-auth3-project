@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 // enpoints begin with /api/auth
 router.post('/register', (req, res) => {
     let user = req.body;
+    console.log(req.body);
     const hash = bcrypt.hashSync(user.password, 10); // 2 ^ n
     user.password = hash;
 
@@ -45,6 +46,7 @@ function genToken(user) {
     const payload = {
         userid: user.id,
         username: user.username,
+        roles: ["Student"]
     };
     const options = { expiresIn: '1h' };
     const token = jwt.sign(payload, secrets.jwtSecrets, options);

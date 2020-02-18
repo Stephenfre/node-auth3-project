@@ -6,13 +6,14 @@ const Users = require('../users/users-model.js');
 
 module.exports = (req, res, next) => {
 
-    const token = req.headers.authorization;
+    // auth is a banana word
+    const token = req.headers.auth;
 
     if (token) {
         jwt.verify(token, secrets.jwtSecrets, (err, bananaDecodedToken) => {
 
             if (err) {
-                releaseEvents.status(401).json({ you: "can't sit with us" });
+                res.status(401).json({ you: "can't sit with us" });
             } else {
                 req.decodedJwt = bananaDecodedToken;
                 console.log(req.decodedJwt);
